@@ -1,2 +1,2 @@
 #!/bin/bash
-cp [A-Z]* /tmp/u
+sudo cp [A-Z]* /tmp/u
