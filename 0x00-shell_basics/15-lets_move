@@ -1,2 +1,2 @@
 #!/bin/bash
-sudo cp [A-Z]*[a-z] /tmp/u
+sudo mv [A-Z]*[a-z] /tmp/u
