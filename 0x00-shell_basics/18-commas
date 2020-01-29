@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -apmI [[:punct:]]*
+ls -apmI _*
