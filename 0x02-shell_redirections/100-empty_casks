@@ -1,2 +1,2 @@
 #!/bin/bash
-ls -Ra | find . -type d,f -empty -printf "%f\n"
+ls -Ra | find /. -empty -printf "%f\n"
