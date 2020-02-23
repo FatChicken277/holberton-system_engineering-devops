@@ -7,6 +7,7 @@
 - Navigation
 - Manipulating Files
 - Working With Commands
+- Scripts
 
 </details>
 
