@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 # This script groups visitors by IP and HTTP status code, and displays this data.
 
-FILE="/home/noroot/Escritorio/apache-access.log"
+FILE="apache-access.log"
 awk '{A[$1]++} END{for(i in A)print "    "A[i],i,$9}' "$FILE" | sort -rn
