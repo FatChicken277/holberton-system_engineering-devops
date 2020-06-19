@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+# This script displays the content of the current directory
+
+LS=$(ls)
+for item in $LS; do
+    echo "$item" | cut -d "-" -f2-
+done
