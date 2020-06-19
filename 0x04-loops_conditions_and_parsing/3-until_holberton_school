@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# This script displays Holberton School 10 times
+
+COUNTER=0
+until [ $COUNTER -eq 10 ]; do
+    echo "Holberton School"
+    ((COUNTER++))
+done
