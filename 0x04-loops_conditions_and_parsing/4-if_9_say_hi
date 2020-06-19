@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+# This Script displays Holberton School 10 times, but for Hi on 9th call
+
+COUNTER=0
+while [ $COUNTER -lt 10 ]; do
+    echo "Holberton School"
+    if [ $COUNTER -eq 8 ]; then
+        echo "Hi"
+    fi
+    ((COUNTER++))
+done
