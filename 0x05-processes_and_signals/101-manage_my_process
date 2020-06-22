@@ -5,7 +5,6 @@ FILE="/var/run/my_process.pid"
 
 Error (){
     echo "Usage: manage_my_process {start|stop|restart}"
-    exit
 }
 
 Start() {
@@ -13,7 +12,7 @@ Start() {
 }
 
 Stop() {
-    pkill -f "manage_my_process" & rm $FILE
+    pkill -f ./"manage_my_process" & sudo rm $FILE
 }
 
 Restart() {
