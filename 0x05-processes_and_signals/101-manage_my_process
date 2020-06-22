@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# This script manages manage_my_process.
+
+if [ $# != 1 ]; then
+    echo "Usage: manage_my_process {start|stop|restart}"
+    exit
+fi
+
+FILE="/var/run/my_process.pid"
+
+Start() {
+    ./manage_my_process & echo $$ > $FILE
+}
+
+Stop() {
+    pkill -f "manage_my_process" & rm $FILE
+}
+
+Restart() {
+    Stop
+    Start
+}
+
+case "$1" in
+    start)
+        Start & echo "manage_my_process started";;
+    stop)
+        Stop & echo "manage_my_process stopped";;
+    restart)
+        Restart & echo "manage_my_process restarted";;
+esac
