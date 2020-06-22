@@ -12,7 +12,7 @@ Start() {
 }
 
 Stop() {
-    pkill -f "manage_my_process" & sudo rm $FILE
+    pkill -f ./"manage_my_process" & sudo rm $FILE
 }
 
 Restart() {
@@ -20,17 +20,13 @@ Restart() {
     Start
 }
 
-if [ $# != 1 ]; then
-    Error
-else
-    case "$1" in
-        start)
-            Start & echo "manage_my_process started";;
-        stop)
-            Stop & echo "manage_my_process stopped";;
-        restart)
-            Restart & echo "manage_my_process restarted";;
-        *)
-            Error;;
-    esac
-fi
+case "$1" in
+    start)
+        Start & echo "manage_my_process started";;
+    stop)
+        Stop & echo "manage_my_process stopped";;
+    restart)
+        Restart & echo "manage_my_process restarted";;
+    *)
+        Error;;
+esac
