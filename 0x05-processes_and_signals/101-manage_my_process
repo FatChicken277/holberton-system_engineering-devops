@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 # This script manages manage_my_process.
 
-if [ $# != 1 ]; then
+FILE="/var/run/my_process.pid"
+
+Error (){
     echo "Usage: manage_my_process {start|stop|restart}"
     exit
-fi
-
-FILE="/var/run/my_process.pid"
+}
 
 Start() {
     ./manage_my_process & echo $$ > $FILE
@@ -21,6 +21,10 @@ Restart() {
     Start
 }
 
+if [ $# != 1 ]; then
+    Error
+fi
+
 case "$1" in
     start)
         Start & echo "manage_my_process started";;
@@ -28,4 +32,6 @@ case "$1" in
         Stop & echo "manage_my_process stopped";;
     restart)
         Restart & echo "manage_my_process restarted";;
+    *)
+        Error;;
 esac
