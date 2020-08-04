@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# This script uses ssh to connect to your server.
+
+ssh -i ~/.ssh/holberton ubuntu@35.196.35.103
