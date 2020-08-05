@@ -10,7 +10,7 @@ file="/var/www/html/index.html"
 echo "Holberton School" > "$file"
 
 config="/etc/nginx/sites-available/default"
-text="server {\n\trewrite ^\/redirect_me$ https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;"
-sed -i "0,/server {/s//$text/" "$config"
+text="server {\n\tserver_name 1637web.tech 35.196.35.103;\n\trewrite ^\/redirect_me$ https:\/\/www.youtube.com\/watch?v=QH2-TGUlwu4 permanent;\n}"
+sed -i "1 i $text" "$config"
 
 service nginx restart
