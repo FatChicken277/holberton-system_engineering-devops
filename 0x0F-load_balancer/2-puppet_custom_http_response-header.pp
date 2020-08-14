@@ -3,7 +3,7 @@
 package { 'nginx':
   ensure   => 'latest',
   name     => 'nginx',
-  provider => 'apt'
+  provider => 'apt',
 }
 
 # custom header
@@ -12,11 +12,11 @@ file_line { 'custom_header':
   path   => '/etc/nginx/sites-available/default',
   line   => "\tadd_header X-Served-By \$hostname;",
   after  => '^server {$',
-  notify => Service['nginx']
+  notify => Service['nginx'],
 }
 
 # restart server.
 
 service { "nginx":
-    ensure => running
+    ensure => running,
 }
