@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+# This script configures Haproxy load balancer.
+
+apt-get install software-properties-common -y
+add-apt-repository ppa:vbernat/haproxy-2.0 -y
+
+apt-get update
+apt-get install haproxy=2.0.\* -y
+
+service haproxy start
+
+config_file="/etc/haproxy/haproxy.cfg"
+text="\nfrontend front_server\n\tbind *:80\n\tmode http\n\tdefault_backend back_servers\n\nbackend back_servers\n\tbalance roundrobin\n\toption forwardfor\n\tserver 1637-web-01 35.196.35.103:80 check\n\tserver 1637-web-02 34.75.67.159:80 check\n"
+echo -e "$text" >> "$config_file"
+
+service haproxy restart
