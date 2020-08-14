@@ -9,10 +9,10 @@ package { 'nginx':
 # custom header
 
 file_line { 'custom_header':
-  path  => '/etc/nginx/sites-available/default',
-  line  => "\tadd_header X-Served-By \$hostname;",
-  after => '^server {$',
-  notify  => Service['nginx']
+  path   => '/etc/nginx/sites-available/default',
+  line   => "\tadd_header X-Served-By \$hostname;",
+  after  => '^server {$',
+  notify => Service['nginx']
 }
 
 # restart server.
