@@ -1,7 +1,7 @@
 # install nginx
 
 package { 'nginx':
-  ensure   => 'latest',
+  ensure   => 'installed',
   name     => 'nginx',
   provider => 'apt',
 }
