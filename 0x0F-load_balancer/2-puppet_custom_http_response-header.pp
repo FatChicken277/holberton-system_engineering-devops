@@ -1,3 +1,11 @@
+#intall libraries
+
+package { 'puppet-module-puppetlabs-stdlib':
+  ensure   => 'latest',
+  name     => 'puppet-module-puppetlabs-stdlib',
+  provider => 'apt',
+}
+
 # install nginx
 
 package { 'nginx':
