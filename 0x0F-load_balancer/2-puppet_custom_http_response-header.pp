@@ -11,12 +11,12 @@ package { 'nginx':
 file_line { 'custom_header':
   path  => '/etc/nginx/sites-available/default',
   line  => "\tadd_header X-Served-By \$hostname;",
-  after => '^server {',
+  after => '^server {$',
+  notify  => Service['nginx']
 }
 
-# start server.
+# restart server.
 
-service { 'nginx':
-  ensure => running,
-  enable => true
+service { "nginx":
+    ensure => running
 }
