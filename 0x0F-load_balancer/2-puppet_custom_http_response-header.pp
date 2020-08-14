@@ -1,10 +1,5 @@
 # install nginx
 
-exec { 'update':
-  command => 'sudo apt-get update',
-  path    => ['/usr/bin', '/bin'],
-}
-
 package { 'nginx':
   ensure   => 'latest',
   name     => 'nginx',
