@@ -1,12 +1,9 @@
-#intall libraries
-
-package { 'puppet-module-puppetlabs-stdlib':
-  ensure   => 'latest',
-  name     => 'puppet-module-puppetlabs-stdlib',
-  provider => 'apt',
-}
-
 # install nginx
+
+exec { 'update':
+  command => 'sudo apt-get update',
+  path    => ['/usr/bin', '/bin'],
+}
 
 package { 'nginx':
   ensure   => 'latest',
@@ -17,14 +14,15 @@ package { 'nginx':
 # custom header
 
 file_line { 'custom_header':
-  path   => '/etc/nginx/sites-available/default',
-  line   => "\tadd_header X-Served-By \$hostname;",
-  after  => '^server {$',
-  notify => Service['nginx'],
+  path    => '/etc/nginx/sites-available/default',
+  line    => "\tadd_header X-Served-By \$hostname;",
+  after   => '^server {$',
+  require => Package['nginx'],
 }
 
-# restart server.
+# start server.
 
-service { "nginx":
-    ensure => running,
+service { 'nginx':
+  ensure => running,
+  enable => true,
 }
