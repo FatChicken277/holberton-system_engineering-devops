@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
 # This script configures the web server to listen to port 80.
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-service nginx restart
-service nginx stop
+kill -1 "$(pidof nginx)"
