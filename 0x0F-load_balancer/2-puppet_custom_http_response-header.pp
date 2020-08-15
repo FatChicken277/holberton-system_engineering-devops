@@ -1,15 +1,9 @@
 # install nginx
 
-exec { 'update':
-  command => 'sudo apt-get update',
-  path    => ['/usr/bin', '/bin'],
-}
-
 package { 'nginx':
   ensure   => 'installed',
   name     => 'nginx',
   provider => 'apt',
-  require  => Exec['update'],
 }
 
 # custom header
