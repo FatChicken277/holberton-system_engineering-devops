@@ -15,9 +15,8 @@ package { 'nginx':
 # custom header
 
 file_line { 'custom_header':
-  ensure => 'present',
   path    => '/etc/nginx/sites-available/default',
-  line    => "\tadd_header X-Served-By ${hostname};",
+  line    => "\tadd_header X-Served-By \$hostname;",
   after   => 'listen 80 default_server;',
   require => Package['nginx'],
 }
