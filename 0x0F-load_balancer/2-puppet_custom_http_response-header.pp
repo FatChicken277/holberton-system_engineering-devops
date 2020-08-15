@@ -2,7 +2,7 @@
 
 exec { 'update':
   command => 'sudo apt-get update',
-  path    => ['/usr/bin', '/usr/sbin', '/bin']
+  path    => ['/usr/bin', '/bin'],
 }
 
 package { 'nginx':
@@ -17,7 +17,7 @@ package { 'nginx':
 file_line { 'custom_header':
   path    => '/etc/nginx/sites-available/default',
   line    => "\tadd_header X-Served-By \$hostname;",
-  after   => '^server {',
+  after   => 'listen 80 default_server;',
   require => Package['nginx'],
 }
 
@@ -25,6 +25,6 @@ file_line { 'custom_header':
 
 exec { 'restart':
   command => 'sudo service nginx restart',
-  path    => ['/usr/bin', '/usr/sbin', '/bin']
+  path    => ['/usr/bin', '/bin'],
   require => File_line['custom_header'],
 }
