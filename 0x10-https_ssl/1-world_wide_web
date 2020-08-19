@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# This script display information about subdomains.
+
+get_info () {
+    dig "$1"."$2" | awk '/ANSWER SECTION/ { getline; print $0 }' | awk 'split($1,a,".") {print "The subdomain", a[1], "is a", $4, "record and points to", $5}'
+}
+
+if [ "$#" -eq 2 ]; then
+    get_info "$2" "$1"
+else
+    list=("www" "lb-01" "web-01" "web-02")
+    for sub in "${list[@]}"; do
+        get_info "$sub" "$1"
+    done
+fi
