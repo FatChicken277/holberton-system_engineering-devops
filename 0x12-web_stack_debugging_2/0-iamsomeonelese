@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+# This script run whoami as another user.
+sudo -u "$1" whoami
