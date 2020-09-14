@@ -42,7 +42,7 @@ def main_function():
             if task.get("userId") == employee_id:
                 tasks_list.append({"task": task.get("title"),
                                    "completed": task.get("completed"),
-                                   "username": user.get("name")})
+                                   "username": user.get("username")})
         dictionary[employee_id] = tasks_list
 
     to_json(dictionary)
