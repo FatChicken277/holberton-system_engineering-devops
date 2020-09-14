@@ -27,8 +27,7 @@ def to_csv(employee_id, employee_name, tasks_content):
         tasks_content (list): List of users tasks.
     """
     with open("{}.csv".format(employee_id), "w") as file:
-        writer = csv.writer(
-            file, delimiter=',', quotechar='"', quoting=csv.QUOTE_ALL)
+        writer = csv.writer(file, quoting=csv.QUOTE_ALL)
 
         for task in tasks_content:
             if task.get("userId") == employee_id:
@@ -55,8 +54,15 @@ def main_function(employee_id):
     else:
         return
 
+    for task in tasks_content:
+        if task.get("userId") == employee_id:
+            break
+    else:
+        return
+
     to_csv(employee_id, user.get("name"), tasks_content)
 
 
 if __name__ == '__main__':
-    main_function(argv[1])
+    if len(argv) == 2:
+        main_function(argv[1])
