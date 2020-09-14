@@ -64,4 +64,5 @@ def main_function(employee_id):
 
 
 if __name__ == '__main__':
-    main_function(argv[1])
+    if len(argv) == 2:
+        main_function(argv[1])
