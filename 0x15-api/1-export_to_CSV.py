@@ -18,20 +18,19 @@ def connection():
     return tasks.json(), users.json()
 
 
-def to_csv(employee_id, employee_name, tasks_content):
+def to_csv(user, tasks_content):
     """This method is responsible for exporting the information to csv format.
 
     Args:
-        employee_id (int): User identifier number.
-        employee_name (str): User name.
+        user (dict): Employee.
         tasks_content (list): List of users tasks.
     """
-    with open("{}.csv".format(employee_id), "w") as file:
+    with open("{}.csv".format(user.get("id")), "w") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
 
         for task in tasks_content:
-            if task.get("userId") == employee_id:
-                writer.writerow([employee_id, employee_name,
+            if task.get("userId") == user.get("id"):
+                writer.writerow([user.get("id"), user.get("name"),
                                 task.get("completed"), task.get("title")])
 
 
@@ -60,7 +59,7 @@ def main_function(employee_id):
     else:
         return
 
-    to_csv(employee_id, user.get("name"), tasks_content)
+    to_csv(user, tasks_content)
 
 
 if __name__ == '__main__':
