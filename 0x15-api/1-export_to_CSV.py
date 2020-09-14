@@ -58,8 +58,6 @@ def main_function(employee_id):
     for task in tasks_content:
         if task.get("userId") == employee_id:
             break
-    else:
-        return
 
     to_csv(employee_id, user.get("name"), tasks_content)
 
