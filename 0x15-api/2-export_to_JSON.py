@@ -6,26 +6,38 @@ import json
 import requests
 
 
-def connection():
+def connection(employee_id):
     """This method is responsible for making the connection with the api
         and decoding the json format.
 
     Returns:
         dict: Users and tasks in dictionary format.
     """
-    tasks = requests.get("https://jsonplaceholder.typicode.com/todos")
-    users = requests.get("https://jsonplaceholder.typicode.com/users")
+    tasks = requests.get(
+        "https://jsonplaceholder.typicode.com/todos?userId={}".format(
+            employee_id))
+    users = requests.get(
+        "https://jsonplaceholder.typicode.com/users/{}".format(
+            employee_id))
     return tasks.json(), users.json()
 
 
-def to_json(employee_id, dictionary):
+def to_json(employee_id, employee_username, tasks):
     """This method is responsible for exporting the information to json format.
 
     Args:
         employee_id (int): User identifier number.
-        dictionay (dict): All formated information.
+        employee_username (str): Username.
+        tasks (dict): User tasks.
     """
     with open("{}.json".format(employee_id), "w") as file:
+        tasks_list = []
+        for task in tasks:
+            tasks_list.append({"task": task.get("title"),
+                               "completed": task.get("completed"),
+                               "username": employee_username})
+        dictionary = {}
+        dictionary[employee_id] = tasks_list
         json.dump(dictionary, file)
 
 
@@ -36,33 +48,15 @@ def main_function(employee_id):
     Args:
         employee_id (int): User identifier number.
     """
-    if not employee_id.isdigit():
-        return
-
     employee_id = int(employee_id)
-    tasks_content, users_content = connection()
+    tasks, user = connection(employee_id)
 
-    for user in users_content:
-        if user.get("id") == employee_id:
-            break
-    else:
+    if len(tasks) == 0 or len(user) == 0:
         return
 
-    tasks_list = []
-    for task in tasks_content:
-        if task.get("userId") == employee_id:
-            tasks_list.append({"task": task.get("title"),
-                               "completed": task.get("completed"),
-                               "username": user.get("name")})
-    if len(tasks_list) == 0:
-        return
-
-    dictionary = {}
-    dictionary[employee_id] = tasks_list
-
-    to_json(employee_id, dictionary)
+    to_json(employee_id, user.get("username"), tasks)
 
 
 if __name__ == '__main__':
-    if len(argv) == 2:
-        main_function(argv[1])
+    if len(argv) == 2 and argv[1].isdigit():
+        main_function(int(argv[1]))
