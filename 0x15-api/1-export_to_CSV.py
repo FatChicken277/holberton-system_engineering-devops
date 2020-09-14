@@ -1,9 +1,9 @@
 #!/usr/bin/python3
 """This module is in charge of making the connection with the api and
     export the information about a employee TODO list progress to csv."""
+from sys import argv
 import csv
 import requests
-from sys import argv
 
 
 def connection(employee_id):
