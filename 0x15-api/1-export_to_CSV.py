@@ -6,32 +6,36 @@ import requests
 from sys import argv
 
 
-def connection():
+def connection(employee_id):
     """This method is responsible for making the connection with the api
         and decoding the json format.
 
     Returns:
         dict: Users and tasks in dictionary format.
     """
-    tasks = requests.get("https://jsonplaceholder.typicode.com/todos")
-    users = requests.get("https://jsonplaceholder.typicode.com/users")
+    tasks = requests.get(
+        "https://jsonplaceholder.typicode.com/todos?userId={}".format(
+            employee_id))
+    users = requests.get(
+        "https://jsonplaceholder.typicode.com/users/{}".format(
+            employee_id))
     return tasks.json(), users.json()
 
 
-def to_csv(user, tasks_content):
+def to_csv(employee_id, employee_name, tasks):
     """This method is responsible for exporting the information to csv format.
 
     Args:
-        user (dict): Employee.
-        tasks_content (list): List of users tasks.
+        employee_id (int): User identifier number.
+        employee_name (str): User name.
+        tasks (list): List of users tasks.
     """
-    with open("{}.csv".format(user.get("id")), "w") as file:
+    with open("{}.csv".format(employee_id), "w") as file:
         writer = csv.writer(file, quoting=csv.QUOTE_ALL)
 
-        for task in tasks_content:
-            if task.get("userId") == user.get("id"):
-                writer.writerow([user.get("id"), user.get("name"),
-                                task.get("completed"), task.get("title")])
+        for task in tasks:
+            writer.writerow([employee_id, employee_name,
+                             task.get("completed"), task.get("title")])
 
 
 def main_function(employee_id):
@@ -45,21 +49,12 @@ def main_function(employee_id):
         return
 
     employee_id = int(employee_id)
-    tasks_content, users_content = connection()
+    tasks, user = connection(employee_id)
 
-    for user in users_content:
-        if user.get("id") == employee_id:
-            break
-    else:
+    if len(tasks) == 0 or len(user) == 0:
         return
 
-    for task in tasks_content:
-        if task.get("userId") == employee_id:
-            break
-    else:
-        return
-
-    to_csv(user, tasks_content)
+    to_csv(employee_id, user.get("name"), tasks)
 
 
 if __name__ == '__main__':
