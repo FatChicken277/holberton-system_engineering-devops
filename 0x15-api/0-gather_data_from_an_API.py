@@ -1,8 +1,8 @@
 #!/usr/bin/python3
 """This module is in charge of making the connection with the api and
     prints information about a employee TODO list progress."""
-import requests
 from sys import argv
+import requests
 
 
 def connection():
