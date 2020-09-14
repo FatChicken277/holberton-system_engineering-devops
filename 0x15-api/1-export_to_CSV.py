@@ -27,7 +27,7 @@ def to_csv(employee_id, employee_name, tasks):
 
     Args:
         employee_id (int): User identifier number.
-        employee_name (str): User name.
+        employee_name (str): Username.
         tasks (list): List of users tasks.
     """
     with open("{}.csv".format(employee_id), "w") as file:
@@ -45,18 +45,15 @@ def main_function(employee_id):
     Args:
         employee_id (int): User identifier number.
     """
-    if not employee_id.isdigit():
-        return
-
     employee_id = int(employee_id)
     tasks, user = connection(employee_id)
 
     if len(tasks) == 0 or len(user) == 0:
         return
 
-    to_csv(employee_id, user.get("name"), tasks)
+    to_csv(employee_id, user.get("username"), tasks)
 
 
 if __name__ == '__main__':
-    if len(argv) == 2:
-        main_function(argv[1])
+    if len(argv) == 2 and argv[1].isdigit():
+        main_function(int(argv[1]))
