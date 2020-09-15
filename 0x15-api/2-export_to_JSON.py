@@ -48,7 +48,6 @@ def main_function(employee_id):
     Args:
         employee_id (int): User identifier number.
     """
-    employee_id = int(employee_id)
     tasks, user = connection(employee_id)
 
     if len(tasks) == 0 or len(user) == 0:
