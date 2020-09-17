@@ -31,10 +31,15 @@ def count_words(subreddit, word_list):
         and prints a sorted count of given keywords."""
     titles = recurse(subreddit)
     if titles is None:
+        print()
         return
     dictionary = {}
     for word in word_list:
-        if sum(word in title for title in titles) > 0:
-            dictionary[word] = sum(word in title for title in titles)
-    for w in sorted(dictionary, key=dictionary.get, reverse=True):
-        print("{}: {}".format(w, dictionary[w]))
+        all_sum = sum(word in title for title in titles)
+        if all_sum > 0:
+            dictionary[word] = all_sum
+    if len(dictionary) > 1:
+        for w in sorted(dictionary, key=dictionary.get, reverse=True):
+            print("{}: {}".format(w, dictionary[w]))
+    else:
+        print()
