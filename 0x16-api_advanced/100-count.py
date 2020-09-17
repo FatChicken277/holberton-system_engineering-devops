@@ -32,12 +32,13 @@ def count_words(subreddit, word_list):
     ts = recurse(subreddit)
     if ts is None:
         return
-    dictionary = {}
+    list_all = []
     for w in word_list:
         all_sum = 0
         for t in ts:
             all_sum += t.lower().split().count(w.lower())
         if all_sum > 0:
-            dictionary[w.lower()] = all_sum
-    for w in sorted(dictionary, key=dictionary.get, reverse=True):
-        print("{}: {}".format(w, dictionary[w]))
+            list_all.append([w, all_sum])
+    list_all = sorted(list_all, key=lambda x: x[0])
+    for k, v in sorted(list_all, key=lambda x: x[1], reverse=True):
+        print("{}: {}".format(k, v))
