@@ -39,7 +39,6 @@ def count_words(subreddit, word_list):
             all_sum += t.lower().split().count(w.lower())
         if all_sum > 0:
             list_all.append([w, all_sum])
-    list_all = sorted(list_all, key=lambda x: x[0])
+    list_all = sorted(list_all, key=lambda x: x[0], reverse=True)
     for k, v in sorted(list_all, key=lambda x: x[1], reverse=True):
-
         print("{}: {}".format(k, v))
