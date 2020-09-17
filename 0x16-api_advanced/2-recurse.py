@@ -10,16 +10,16 @@ def recurse(subreddit, hot_list=[], after=""):
     headers = {"user-agent": "1637-holberton"}
     if after is None:
         return hot_list
-    if after != "":
+    if after == "":
+        r = requests.get('https://www.reddit.com/r/{}/hot.json'.format(
+            subreddit), headers=headers, allow_redirects=False)
+    else:
         r = requests.get(
             'https://www.reddit.com/r/{}/hot.json?after={}'.format(
-                subreddit, after), headers=headers)
-    else:
-        r = requests.get('https://www.reddit.com/r/{}/hot.json'.format(
-            subreddit), headers=headers)
+                subreddit, after), headers=headers, allow_redirects=False)
     if r.status_code != 200:
         return None
     after = r.json().get("data").get("after")
     for child in r.json().get("data").get("children")[:10]:
         hot_list.append(child.get("data").get("title"))
-    return(recurse(subreddit, hot_list, after))
+    return recurse(subreddit, hot_list, after)
