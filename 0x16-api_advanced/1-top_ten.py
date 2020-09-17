@@ -9,9 +9,9 @@ def top_ten(subreddit):
         for a given subreddit."""
     headers = {"user-agent": "1637-holberton"}
     r = requests.get('https://www.reddit.com/r/{}/hot.json?limit=10'.format(
-        subreddit), headers=headers).json()
-    if not r.get("data") and not r.get("data").get("children"):
+        subreddit), headers=headers)
+    if r.status_code != 200:
         print(None)
         return
-    for child in r.get("data").get("children")[:10]:
+    for child in r.json().get("data").get("children")[:10]:
         print(child.get("data").get("title"))
