@@ -38,6 +38,6 @@ def count_words(subreddit, word_list):
         for t in ts:
             all_sum += t.lower().split().count(w.lower())
         if all_sum > 0:
-            dictionary[w] = all_sum
+            dictionary[w.lower()] = all_sum
     for w in sorted(dictionary, key=dictionary.get, reverse=True):
         print("{}: {}".format(w, dictionary[w]))
