@@ -3,7 +3,6 @@
     api and parses the title of all hot articles, and prints a
     sorted count of given keywords."""
 import requests
-from collections import OrderedDict
 
 
 def recurse(subreddit, hot_list=[], after=""):
@@ -33,11 +32,10 @@ def count_words(subreddit, word_list):
     titles = recurse(subreddit)
     if titles is None:
         return
-    dictionary = OrderedDict()
+    dictionary = {}
     for word in word_list:
-        all_sum = sum(word in title for title in titles)
+        all_sum = sum(word in title.split() for title in titles)
         if all_sum > 0:
             dictionary[word] = all_sum
-    dictionary = sorted(dictionary.items(), key=lambda x: x[0])
-    for k, v in sorted(dictionary, key=lambda x: x[1], reverse=True):
-        print("{}: {}".format(k, v))
+    for w in sorted(dictionary, key=dictionary.get, reverse=True):
+        print("{}: {}".format(w, dictionary[w]))
