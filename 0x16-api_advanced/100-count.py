@@ -29,13 +29,13 @@ def recurse(subreddit, hot_list=[], after=""):
 def count_words(subreddit, word_list):
     """This method parses the title of all hot articles,
         and prints a sorted count of given keywords."""
-    titles = recurse(subreddit)
-    if titles is None:
+    ts = recurse(subreddit)
+    if ts is None:
         return
     dictionary = {}
-    for word in word_list:
-        all_sum = sum(word in title.split() for title in titles)
+    for w in word_list:
+        all_sum = sum(w.lower() in t.lower().split() for t in ts)
         if all_sum > 0:
-            dictionary[word] = all_sum
+            dictionary[w.lower()] = all_sum
     for w in sorted(dictionary, key=dictionary.get, reverse=True):
         print("{}: {}".format(w, dictionary[w]))
