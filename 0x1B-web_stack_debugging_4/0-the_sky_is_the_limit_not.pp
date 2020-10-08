@@ -1,6 +1,4 @@
 # This script fix the file limit.
-include stdlib
-
 file_line { 'fix_file_limit':
   path  => '/etc/default/nginx',
   line  => 'ULIMIT="-n 1536"',
