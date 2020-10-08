@@ -1,5 +1,12 @@
 # This script fix the file limit.
-exec { 'fix-for-nginx':
-  command => 'sed -i s/15/1536/ /etc/default/nginx && service nginx restart',
-  path    => '/bin',
+file_line { 'fix_file_limit':
+  path  => '/etc/default/nginx',
+  line  => 'ULIMIT="-n 1000"',
+  match => '^ULIMIT=',
+}
+
+exec { 'restart':
+  command => 'service nginx restart',
+  path    => ['/usr/bin', '/bin'],
+  require => File_line['fix_file_limit'],
 }
