@@ -1,0 +1,20 @@
+Web server 02 down.
+
+Summary of issues:
+    - Duration of the interruption: 47 minutes from 4:14 pm to 5:01 pm.
+    - Impact: Critical, 100% of users affected by this problem.
+    - Root cause: port 22 firewall blocking == ssh.
+Timeline:
+    - The problem was detected more or less 5 minutes after the server crashed.
+    - The problem was detected by the person who blocked the ports when trying to access the server.
+    - The first action was to verify all the open ports of the server and try to make a connection through another port.
+    - The problem was debugged with the nmap command to see all the ports the server was listening on at the moment.
+    - The problem was assigned to the server administrator.
+    - The problem was solved by creating a new server since it was impossible to access it in another way.
+Main cause:
+    - The problem originated when installing and updating the firewall rules "ufw", in the rules ports 443 and 80 were defined as valid ports but port 22 was blocked, which made the server not accessible through ssh.
+    - The solution was to create a new server ASAP and try to use the old backups to get the service up and running as soon as possible.
+Corrective and preventive measures:
+    - Define firewall rules when creating the servers.
+    - Be more careful when handling firewall rules and avoid making changes without the supervision of other people.
+    - Make backup copies more frequently so that in the event that a similar incident occurs again, the deployment of the new server is faster.
